@@ -1,0 +1,92 @@
+generator client {
+provider = "prisma-client-js"
+}
+
+datasource db {
+provider = "postgresql"
+url      = env("DATABASE_URL")
+}
+
+enum Role {
+STUDENT
+PROFESSOR
+}
+
+enum ApplicationStatus {
+PENDING
+ACCEPTED
+REJECTED
+}
+
+model User {
+  id       String @id @default(uuid())
+  name     String
+  email    String @unique
+  password String
+  role     Role
+
+  phone       String?
+  department  String?
+  year        String?
+  cgpa        String?
+  skills      String?
+  bio         String?
+  linkedin    String?
+  github      String?
+  portfolio   String?
+  resumeUrl   String?
+researchInterests String?
+  projects      Project[]
+  applications  Application[]
+  savedProjects SavedProject[]
+
+  createdAt DateTime @default(now())
+}
+
+model Project {
+  id           String   @id @default(uuid())
+  title        String
+  description  String
+  department   String
+
+  // NEW FIELDS
+  requiredSkills String?
+  eligibility    String?
+  positions       Int?
+  deadline        DateTime?
+
+  professorId String
+  professor   User @relation(fields: [professorId], references: [id])
+
+  applications Application[]
+savedProjects SavedProject[]
+  createdAt DateTime @default(now())
+}
+model Application {
+id String @id @default(uuid())
+
+studentId String
+projectId String
+
+student User    @relation(fields: [studentId], references: [id])
+project Project @relation(fields: [projectId], references: [id])
+
+status ApplicationStatus @default(PENDING)
+
+createdAt DateTime @default(now())
+}
+model SavedProject {
+  id String @id @default(uuid())
+
+  studentId String
+  projectId String
+
+  student User @relation(fields: [studentId], references: [id])
+  project Project @relation(fields: [projectId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@unique([studentId, projectId])
+}
+
+
