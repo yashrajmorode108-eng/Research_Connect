@@ -170,7 +170,7 @@ Main entities
 ## Clone Repository
 
 ```bash
-git clone https://github.com/prashik142/research-connect.git
+git clone https://github.com/yashrajmorode108-eng/Research_Connect.git
 
 cd research-connect
 ```
@@ -360,11 +360,11 @@ git push origin feature/NewFeature
 
 # 👨‍💻 Author
 
-**Prashik Mane**
+**Yashraj Morode**
 
 GitHub
 
-https://github.com/prashik142
+https://github.com/yashrajmorode108-eng
 
 ---
 
